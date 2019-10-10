@@ -1,9 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
-import { setYear } from "./actions/pageActions";
+// import { setYear } from "./actions/pageActions";
 import Car from "./components/car";
-import { pushArr } from "./actions/pageActions";
+import {
+  pushArr,
+  switchEngine,
+  stopAll,
+  switchMove,
+  deleteArr
+} from "./actions/pageActions";
 
 class App extends React.Component {
   state = { accept: false, id: 0, selectValue: "bmv" };
@@ -18,21 +24,23 @@ class App extends React.Component {
     this.setState({ selectValue: e.currentTarget.value });
   };
   render() {
-    var now = new Date();
-
-    var milliSeconds = now.getTime();
-
     const newArr = this.props.arrFor.map(value => {
       return (
         <div key={value.id}>
           <Car
+            changeMove={this.props.changeMove}
+            dispatchEngine={this.props.dispatchEngine}
+            stopMoving={this.props.stopMoving}
             id={value.id}
             marka={value.marka}
-            engineP={this.props.allProps.arrCar.engine}
+            engine={this.props.engineProps}
+            isMove={this.props.isMove}
+            deleteArr={this.props.deleteArr}
           />
         </div>
       );
     });
+
     return (
       <div className="App">
         {newArr}
@@ -56,12 +64,23 @@ class App extends React.Component {
   }
 }
 const mapStateToProps = store => {
-  return { arrFor: store.page.arrCar, allProps: store.page };
+  return {
+    arrFor: store.page.arrCar,
+    allProps: store.page,
+    isMove: store.page.move,
+    engineProps: store.page.engine
+  };
 };
 const mapDispatchToProps = dispatch => {
   return {
     pushArr: e => {
       dispatch(pushArr(e));
+    },
+    dispatchEngine: e => dispatch(switchEngine(e)),
+    stopMoving: () => dispatch(stopAll()),
+    changeMove: () => dispatch(switchMove()),
+    deleteArr: e => {
+      dispatch(deleteArr(e));
     }
   };
 };

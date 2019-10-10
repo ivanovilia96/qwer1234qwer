@@ -6,16 +6,21 @@ import {
   DELETE
 } from "../actions/pageActions";
 export const initialState = {
-  id: 0,
-  arrCar: [{ id: 0, engine: false, marka: "bmv", move: false }]
+  id: 1,
+  arrCar: [{ id: 1, engine: false, marka: "bmv", move: false }]
 };
 
 export function allReducer(state = initialState, action) {
-  console.log(state);
   switch (action.type) {
     case SWITCH_ENGINE: {
+      let X = (state.arrCar.find(e => {
+        return e.id === action.payload;
+      }).engine = !state.arrCar[action.payload].engine);
+      alert(X);
+
       return { ...state, engine: !state.engine };
     }
+
     case SWITCH_MOVE: {
       return { ...state, move: !state.move };
     }

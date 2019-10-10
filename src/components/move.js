@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { switchMove } from "../actions/pageActions";
+// import { switchMove } from "../actions/pageActions";
 
 class Move extends React.Component {
   handleSwitchMove = () => {
@@ -19,16 +19,15 @@ class Move extends React.Component {
     );
   }
 }
-const mapStateToProps = store => {
-  return {
-    isMove: store.page.move,
-    engine: store.page.engine
-  };
-};
-const mapDispatchToprops = dispatch => {
-  return { changeMove: () => dispatch(switchMove()) };
-};
-export default connect(
-  mapStateToProps,
-  mapDispatchToprops
-)(Move);
+// const mapStateToProps = store => {
+//   return {
+//     isMove: store.page.move,
+//     engine: store.page.engine
+//   };
+// };
+// const mapDispatchToprops = dispatch => {
+//   return { changeMove: () => dispatch(switchMove()) };
+// };
+export default connect()(Move);
+// mapStateToProps,
+// mapDispatchToprops

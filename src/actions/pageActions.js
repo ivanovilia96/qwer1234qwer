@@ -3,9 +3,11 @@ export const SWITCH_MOVE = "SWITCH_MOVE";
 export const STOP = "STOP";
 export const PROPERTIES = "PROPERTIES";
 export const DELETE = "DELETE";
-export function switchEngine() {
+
+export function switchEngine(id) {
   return {
-    type: SWITCH_ENGINE
+    type: SWITCH_ENGINE,
+    payload: id
   };
 }
 export function switchMove() {
