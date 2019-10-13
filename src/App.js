@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./App.css";
-// import { setYear } from "./actions/pageActions";
 import Car from "./components/car";
 import {
   pushArr,
-  switchEngine,
+  startEngine,
   stopAll,
-  switchMove,
+  startMoving,
+  stopMoving,
+  stopEngine,
   deleteArr
 } from "./actions/pageActions";
 
@@ -28,13 +29,15 @@ class App extends React.Component {
       return (
         <div key={value.id}>
           <Car
-            changeMove={this.props.changeMove}
-            dispatchEngine={this.props.dispatchEngine}
+            startMoving={this.props.startMoving}
             stopMoving={this.props.stopMoving}
+            startEngine={this.props.startEngine}
+            stopEngine={this.props.stopEngine}
+            stopAll={this.props.stopAll}
             id={value.id}
             marka={value.marka}
-            engine={this.props.engineProps}
-            isMove={this.props.isMove}
+            engine={value.engine}
+            isMove={value.move}
             deleteArr={this.props.deleteArr}
           />
         </div>
@@ -42,9 +45,8 @@ class App extends React.Component {
     });
 
     return (
-      <div className="App">
-        {newArr}
-
+      <div className="mainDiv">
+        {newArr.length ? newArr : "Ваш автопарк пуст,пока что..."} <br />
         <a href="https://yandex.ru/">Согласится с правилами сервиса </a>
         <input type="checkbox" onClick={this.handleAccept} />
         <select value={this.state.selectValue} onChange={this.handkeSelect}>
@@ -73,12 +75,18 @@ const mapStateToProps = store => {
 };
 const mapDispatchToProps = dispatch => {
   return {
+    startMoving: e => {
+      dispatch(startMoving(e));
+    },
+    stopMoving: e => {
+      dispatch(stopMoving(e));
+    },
     pushArr: e => {
       dispatch(pushArr(e));
     },
-    dispatchEngine: e => dispatch(switchEngine(e)),
-    stopMoving: () => dispatch(stopAll()),
-    changeMove: () => dispatch(switchMove()),
+    startEngine: e => dispatch(startEngine(e)),
+    stopEngine: e => dispatch(stopEngine(e)),
+    stopAll: e => dispatch(stopAll(e)),
     deleteArr: e => {
       dispatch(deleteArr(e));
     }

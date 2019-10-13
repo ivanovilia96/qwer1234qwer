@@ -1,20 +1,32 @@
-export const SWITCH_ENGINE = "SWITCH_ENGINE";
-export const SWITCH_MOVE = "SWITCH_MOVE";
+export const START_ENGINE = "START_ENGINE";
+export const STOP_ENGINE = "STOP_ENGINE";
+
 export const STOP = "STOP";
 export const PROPERTIES = "PROPERTIES";
 export const DELETE = "DELETE";
+export const START_MOVING = "START_MOVING";
+export const STOP_MOVING = "STOP_MOVING";
 
-export function switchEngine(id) {
+export function startEngine(id) {
   return {
-    type: SWITCH_ENGINE,
+    type: START_ENGINE,
     payload: id
   };
 }
-export function switchMove() {
-  return { type: SWITCH_MOVE };
+export function stopEngine(id) {
+  return {
+    type: STOP_ENGINE,
+    payload: id
+  };
 }
-export function stopAll() {
-  return { type: STOP };
+export function startMoving(id) {
+  return { type: START_MOVING, payload: id };
+}
+export function stopMoving(id) {
+  return { type: STOP_MOVING, payload: id };
+}
+export function stopAll(id) {
+  return { type: STOP, payload: id };
 }
 export function pushArr(e) {
   return { type: PROPERTIES, payload: e };

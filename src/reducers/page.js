@@ -1,31 +1,55 @@
 import {
-  SWITCH_ENGINE,
-  SWITCH_MOVE,
+  START_ENGINE,
+  START_MOVING,
+  STOP_MOVING,
   STOP,
   PROPERTIES,
-  DELETE
+  DELETE,
+  STOP_ENGINE
 } from "../actions/pageActions";
 export const initialState = {
-  id: 1,
-  arrCar: [{ id: 1, engine: false, marka: "bmv", move: false }]
+  id: 2,
+  arrCar: [
+    { id: 0, engine: false, marka: "bmv", move: false },
+    { id: 1, engine: false, marka: "mersedes", move: false },
+    { id: 2, engine: false, marka: "audi", move: false }
+  ]
 };
 
 export function allReducer(state = initialState, action) {
   switch (action.type) {
-    case SWITCH_ENGINE: {
-      let X = (state.arrCar.find(e => {
-        return e.id === action.payload;
-      }).engine = !state.arrCar[action.payload].engine);
-      alert(X);
+    case START_ENGINE: {
+      state.arrCar.find(some => {
+        return some.id === action.payload;
+      }).engine = true;
 
-      return { ...state, engine: !state.engine };
+      return { ...state };
+    }
+    case STOP_ENGINE: {
+      state.arrCar.find(some => {
+        return some.id === action.payload;
+      }).engine = false;
+
+      return { ...state };
+    }
+    case START_MOVING: {
+      state.arrCar.find(some => {
+        return some.id === action.payload;
+      }).move = true;
+      return { ...state };
+    }
+    case STOP_MOVING: {
+      state.arrCar.find(some => {
+        return some.id === action.payload;
+      }).move = false;
+      return { ...state };
     }
 
-    case SWITCH_MOVE: {
-      return { ...state, move: !state.move };
-    }
     case STOP: {
-      return { ...state, move: false };
+      state.arrCar.find(some => {
+        return some.id === action.payload;
+      }).move = false;
+      return { ...state };
     }
     case PROPERTIES: {
       return {
@@ -51,3 +75,17 @@ export function allReducer(state = initialState, action) {
       return state;
   }
 }
+// return {  из-за удаления элемента массива id передаваемое в кнопке остается, а  element id сдвигается.
+//   ...state,
+//   arrCar: state.arrCar.map(element => {
+//     if (element.id === action.payload) {
+//       return {
+//         id: action.payload,
+//         engine: !state.arrCar[action.payload].engine,
+//         marka: state.arrCar[action.payload].marka,
+//         move: false
+//       };
+//     }
+//     return element;
+//   })
+// };

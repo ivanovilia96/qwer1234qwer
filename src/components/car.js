@@ -2,7 +2,6 @@ import React from "react";
 import Engine from "./engineState";
 import { connect } from "react-redux";
 import Move from "./move";
-// import { deleteArr } from "../actions/pageActions";
 
 class Car extends React.Component {
   render() {
@@ -11,14 +10,17 @@ class Car extends React.Component {
         {this.props.marka}
         <Engine
           engine={this.props.engine}
-          dispatchEngine={this.props.dispatchEngine}
-          stopMoving={this.props.stopMoving}
+          startEngine={this.props.startEngine}
+          stopEngine={this.props.stopEngine}
+          stopAll={this.props.stopAll}
           id={this.props.id}
         />
         <Move
-          changeMove={this.props.changeMove}
+          startMoving={this.props.startMoving}
+          stopMoving={this.props.stopMoving}
           isMove={this.props.isMove}
           engine={this.props.engine}
+          id={this.props.id}
         />
 
         {this.props.engine
@@ -36,21 +38,5 @@ class Car extends React.Component {
     this.props.deleteArr(this.props.id);
   };
 }
-// const mapStateToProps = store => {
-//   return {
-//     stateEngine: store.page.engine,
-//     // marka: store.page.marka,
-//     move: store.page.move
-//   };
-// };
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     deleteArr: e => {
-//       dispatch(deleteArr(e));
-//     }
-//   };
-// };
 
 export default connect()(Car);
-// mapStateToProps,
-// mapDispatchToProps

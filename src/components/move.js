@@ -1,16 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { switchMove } from "../actions/pageActions";
 
 class Move extends React.Component {
-  handleSwitchMove = () => {
-    this.props.changeMove();
+  handleStartMoving = () => {
+    this.props.startMoving(this.props.id);
+  };
+  handleStopMoving = () => {
+    this.props.stopMoving(this.props.id);
   };
   render() {
     return (
       <div>
         <button
-          onClick={this.handleSwitchMove}
+          onClick={
+            this.props.isMove ? this.handleStopMoving : this.handleStartMoving
+          }
           disabled={this.props.engine ? false : true}
         >
           {this.props.isMove ? " остановиться" : "начать движение"}
@@ -19,15 +23,5 @@ class Move extends React.Component {
     );
   }
 }
-// const mapStateToProps = store => {
-//   return {
-//     isMove: store.page.move,
-//     engine: store.page.engine
-//   };
-// };
-// const mapDispatchToprops = dispatch => {
-//   return { changeMove: () => dispatch(switchMove()) };
-// };
+
 export default connect()(Move);
-// mapStateToProps,
-// mapDispatchToprops
